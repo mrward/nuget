@@ -183,7 +183,7 @@ namespace NuGet
             }
         }
 
-        internal static void AddFile(this IFileSystem fileSystem, string path, Action<Stream> write)
+        private static void AddFile(this IFileSystem fileSystem, string path, Action<Stream> write)
         {
             using (var stream = fileSystem.CreateFile(path))
             {

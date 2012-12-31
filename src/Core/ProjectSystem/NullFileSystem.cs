@@ -70,6 +70,11 @@ namespace NuGet
             // Do nothing
         }
 
+        public void AddFile(string path, Action<Stream> writeToStream)
+        {
+            // Do nothing
+        }
+
         public Stream OpenFile(string path)
         {
             return Stream.Null;
