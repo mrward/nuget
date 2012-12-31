@@ -63,7 +63,7 @@ namespace NuGet
             Uri source = new Uri(path1);
             Uri target = new Uri(path2);
 
-            return UriUtility.GetPath(source.MakeRelativeUri(target));
+            return UriUtility.GetPath(UriUtility.MakeRelativeUri(source, target));
         }
 
         public static string GetAbsolutePath(string basePath, string relativePath)
