@@ -42,5 +42,45 @@ namespace NuGet
 
             return Uri.Compare(uri1, uri2, UriComponents.SchemeAndServer | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase) == 0;
         }
+        
+        /// <summary>
+        /// Workaround Mono issue with Uri.MakeRelativeUri not returning "../" in relative uri.
+        /// 
+        /// Taken from latest Mono Uri class.
+        /// 
+        /// https://github.com/mono/mono/blob/master/mcs/class/System/System/Uri.cs
+        /// Commit: 8c7c1ff5f325ad34d38341c93e80b81ce9c553ae
+        /// </summary>
+        public static Uri MakeRelativeUri (Uri source, Uri uri)
+        {
+            if (uri == null)
+            {
+                throw new ArgumentNullException ("uri");
+            }
+            if (source.Host != uri.Host || source.Scheme != uri.Scheme)
+                return uri;
+            
+            string result = String.Empty;
+            if (source.AbsolutePath != uri.AbsolutePath){
+                string [] segments = source.Segments;
+                string [] segments2 = uri.Segments;
+                
+                int k = 0;
+                int max = Math.Min (segments.Length, segments2.Length);
+                for (; k < max; k++)
+                    if (segments [k] != segments2 [k]) 
+                        break;
+                
+                for (int i = k; i < segments.Length && segments [i].EndsWith ("/"); i++)
+                    result += "../";
+                for (int i = k; i < segments2.Length; i++)
+                    result += segments2 [i];
+                
+                if (result == string.Empty)
+                    result = "./";
+            }
+
+            return new Uri (result, UriKind.Relative);
+        }
     }
 }
