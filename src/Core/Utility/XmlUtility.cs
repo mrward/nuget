@@ -76,7 +76,7 @@ namespace NuGet
         {
             using (Stream configStream = fileSystem.OpenFile(path))
             {
-                return XmlUtility.LoadSafe(configStream, LoadOptions.PreserveWhitespace);
+                return XmlUtility.LoadSafe(configStream);
             }
         }
 
