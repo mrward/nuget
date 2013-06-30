@@ -24,6 +24,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NuGet</RootNamespace>
     <AssemblyName>NuGet</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build" />
