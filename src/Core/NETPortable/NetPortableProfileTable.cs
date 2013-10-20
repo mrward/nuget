@@ -145,22 +145,32 @@ namespace NuGet
             }
             else
             {
-                portableRootDirectory =
-                    Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86, Environment.SpecialFolderOption.DoNotVerify),
-                        @"Reference Assemblies\Microsoft\Framework\.NETPortable");
+                portableRootDirectory = GetPortableRootDirectory();
             }
 
             if (Directory.Exists(portableRootDirectory))
             {
                 foreach (string versionDir in Directory.EnumerateDirectories(portableRootDirectory, "v*", SearchOption.TopDirectoryOnly))
                 {
-                    string profileFilesPath = versionDir + @"\Profile\";
+                    string profileFilesPath = Path.Combine(versionDir, "Profile");
                     profileCollection.AddRange(LoadProfilesFromFramework(versionDir, profileFilesPath));
                 }
             }
 
             return profileCollection;
+        }
+        
+        static string GetPortableRootDirectory()
+        {
+            if (EnvironmentUtility.IsUnix)
+            {
+                var resolver = new MonoNetPortableProfilePathResolver();
+                return resolver.GetRootDirectory();
+            }
+
+            return Path.Combine(
+                       Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86, Environment.SpecialFolderOption.DoNotVerify),
+                       @"Reference Assemblies\Microsoft\Framework\.NETPortable");
         }
 
         private static IEnumerable<NetPortableProfile> LoadProfilesFromFramework(string version, string profileFilesPath)
