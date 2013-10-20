@@ -59,7 +59,7 @@ namespace NuGet
 
             _packageDownloader = packageDownloader;
 
-            if (EnvironmentUtility.RunningFromCommandLine)
+            if (EnvironmentUtility.RunningFromCommandLine || EnvironmentUtility.IsMonoRuntime)
             {
                 _packageDownloader.SendingRequest += OnPackageDownloaderSendingRequest;
             }
