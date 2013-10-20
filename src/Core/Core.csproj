@@ -105,6 +105,7 @@
     <Compile Include="IMachineWideSettings.cs" />
     <Compile Include="Logging\FileConflictResolution.cs" />
     <Compile Include="Logging\IFileConflictResolver.cs" />
+    <Compile Include="NETPortable\MonoNetPortableProfilePathResolver.cs" />
     <Compile Include="NETPortable\NetPortableProfile.cs" />
     <Compile Include="NETPortable\NetPortableProfileCollection.cs" />
     <Compile Include="NETPortable\NetPortableProfileTable.cs" />
