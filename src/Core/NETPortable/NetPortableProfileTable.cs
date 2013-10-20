@@ -130,7 +130,7 @@ namespace NuGet
                 return null;
             }
 
-            var supportedFrameworks = Directory.EnumerateFiles(supportedFrameworkDirectory, "*.xml")
+            var supportedFrameworks = Directory.GetFiles(supportedFrameworkDirectory, "*.xml")
                                                .Select(LoadSupportedFramework)
                                                .Where(p => p != null);
 
