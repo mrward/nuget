@@ -14,11 +14,6 @@ namespace NuGet
         // This collection is the original indexed collection where profiles are indexed by 
         // the full "ProfileXXX" naming. 
         private static NetPortableProfileCollection _portableProfiles;
-        // In order to make the NetPortableProfile.Parse capable of also parsing so-called 
-        // "custom profile string" version (i.e. "net40-client"), we need an alternate index
-        // by this key. I used dictionary here since I saw no value in creating a custom collection 
-        // like it's done already for the _portableProfiles. Not sure why it's done that way there.
-        private static IDictionary<string, NetPortableProfile> _portableProfilesByCustomProfileString;
 
         public static NetPortableProfile GetProfile(string profileName)
         {
@@ -34,12 +29,7 @@ namespace NuGet
                 return Profiles[profileName];
             }
 
-            // If we didn't get a profile by the simple profile name, try now with 
-            // the custom profile string (i.e. "net40-client")
-            NetPortableProfile result = null;
-            _portableProfilesByCustomProfileString.TryGetValue(profileName, out result);
-
-            return result;
+            return null;
         }
 
         internal static NetPortableProfileCollection Profiles
@@ -60,7 +50,6 @@ namespace NuGet
             {
                 // This setter is only for Unit Tests.
                 _portableProfiles = value;
-                _portableProfilesByCustomProfileString = _portableProfiles.ToDictionary(x => x.CustomProfileString);
             }
         }
 
