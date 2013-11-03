@@ -117,9 +117,18 @@ namespace NuGet
                 throw new ArgumentNullException("other");
             }
 
-            return other.SupportedFrameworks.All(
-                projectFramework => this.SupportedFrameworks.Any(
-                    packageFramework => VersionUtility.IsCompatible(projectFramework, packageFramework)));
+            if (IncludeMonoFrameworksForCompatiblity(other))
+            {
+                return other.SupportedFrameworks.All(
+                    projectFramework => this.SupportedFrameworks.Any(
+                        packageFramework => VersionUtility.IsCompatible(projectFramework, packageFramework)));
+            }
+            else
+            {
+                return other.GetSupportedNonMonoFrameworks().All(
+                    projectFramework => this.GetSupportedNonMonoFrameworks().Any(
+                        packageFramework => VersionUtility.IsCompatible(projectFramework, packageFramework)));
+            }
         }
 
         public bool IsCompatibleWith(FrameworkName framework)
@@ -167,6 +176,26 @@ namespace NuGet
                                                   .Select(VersionUtility.ParseFrameworkName);
 
             return new NetPortableProfile(profileValue, supportedFrameworks);
+        }
+
+        private IEnumerable<FrameworkName> GetSupportedNonMonoFrameworks()
+        {
+            return SupportedFrameworks.Where(framework => !IsMonoFramework(framework));
+        }
+
+        private bool IsMonoFramework(FrameworkName framework)
+        {
+            return framework.Identifier.StartsWith("Mono", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool IncludeMonoFrameworksForCompatiblity(NetPortableProfile other)
+        {
+            return this.AnyMonoFrameworks() && other.AnyMonoFrameworks();
+        }
+
+        private bool AnyMonoFrameworks()
+        {
+            return SupportedFrameworks.Any(framework => IsMonoFramework(framework));
         }
     }
 }
