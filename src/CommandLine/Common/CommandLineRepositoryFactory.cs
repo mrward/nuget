@@ -20,7 +20,10 @@ namespace NuGet.Common
             var httpClientEvents = repository as IHttpClientEvents;
             if (httpClientEvents != null)
             {
-                SendingRequestEventManager.AddListener(httpClientEvents, this);
+                if (!EnvironmentUtility.IsMonoRuntime)
+                {
+                    SendingRequestEventManager.AddListener(httpClientEvents, this);
+                }
             }
 
             return repository;
