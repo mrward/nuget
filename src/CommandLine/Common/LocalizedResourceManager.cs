@@ -35,5 +35,12 @@ namespace NuGet
 
             return culture.ThreeLetterWindowsLanguageName.ToLowerInvariant();
         }
+        
+        public static readonly string InstallCommandPackageRestoreConsentNotFound =
+            "Package restore is disabled. To enable it, edit the NuGet.config file and set packageRestore to true. You can also enable package restore by setting the environment variable 'EnableNuGetPackageRestore' to 'true'.";
+        
+        public static readonly string RestoreCommandPackageRestoreOptOutMessage =
+            "Restoring NuGet packages...\n" +
+            "To prevent NuGet from downloading packages, edit the NuGet.config file and set packageRestore to false.";
     }
 }

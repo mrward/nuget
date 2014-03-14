@@ -135,10 +135,7 @@ namespace NuGet.Commands
             // display opt-out message if needed
             if (Console != null && RequireConsent && new PackageRestoreConsent(Settings).IsGranted)
             {
-                string message = String.Format(
-                    CultureInfo.CurrentCulture,
-                    LocalizedResourceManager.GetString("RestoreCommandPackageRestoreOptOutMessage"),
-                    NuGet.Resources.NuGetResources.PackageRestoreConsentCheckBoxText.Replace("&", ""));
+                string message = LocalizedResourceManager.RestoreCommandPackageRestoreOptOutMessage;
                 Console.WriteLine(message);
             }
 
@@ -429,10 +426,7 @@ namespace NuGet.Commands
         {
             if (RequireConsent && !packageRestoreConsent)
             {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    LocalizedResourceManager.GetString("InstallCommandPackageRestoreConsentNotFound"),
-                    NuGet.Resources.NuGetResources.PackageRestoreConsentCheckBoxText.Replace("&", ""));
+                string message = LocalizedResourceManager.InstallCommandPackageRestoreConsentNotFound;
                 throw new InvalidOperationException(message);
             }
         }
