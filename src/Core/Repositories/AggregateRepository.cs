@@ -170,7 +170,10 @@ namespace NuGet
 
         public IQueryable<IPackage> Search(string searchTerm, IEnumerable<string> targetFrameworks, bool allowPrereleaseVersions)
         {
-            return CreateAggregateQuery(Repositories.Select(r => r.Search(searchTerm, targetFrameworks, allowPrereleaseVersions)));
+            // We need to follow this pattern in all AggregateRepository methods to ensure it suppresses exceptions that may occur if the Ignore flag is set. 
+            var defaultResult = Enumerable.Empty<IPackage>().AsQueryable();
+            Func<IPackageRepository, IQueryable<IPackage>> searchPackages = Wrap(r => r.Search(searchTerm, targetFrameworks, allowPrereleaseVersions), defaultResult);
+            return CreateAggregateQuery(Repositories.Select(searchPackages));
         }
 
         public IPackageRepository Clone()
