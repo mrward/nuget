@@ -164,7 +164,7 @@ namespace NuGet
             return factory;
         }
 
-        public void LogRepository(IPackageRepository repository, Exception ex)
+        public virtual void LogRepository(IPackageRepository repository, Exception ex)
         {
             _failingRepositories.Add(repository);
             Logger.Log(MessageLevel.Warning, ExceptionUtility.Unwrap(ex).Message);
