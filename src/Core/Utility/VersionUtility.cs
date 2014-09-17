@@ -80,7 +80,9 @@ namespace NuGet
             { "Xamarin.XboxThreeSixty", "Xamarin.Xbox360" },
             { "XamarinXboxThreeSixty", "Xamarin.Xbox360" },
             { "Xamarin.XboxOne", "Xamarin.XboxOne" },
-            { "XamarinXboxOne", "Xamarin.XboxOne" }
+            { "XamarinXboxOne", "Xamarin.XboxOne" },
+            { "MonoTouch.Unified", "MonoTouch.Unified" },
+            { "MonoTouchUnified", "MonoTouch.Unified" }
         };
 
         private static readonly Dictionary<string, string> _knownProfiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
@@ -106,7 +108,8 @@ namespace NuGet
             { "Xamarin.PlayStation4", "xamarinpsfour" },
             { "Xamarin.PlayStationVita", "xamarinpsvita" },
             { "Xamarin.Xbox360", "xamarinxboxthreesixty" },
-            { "Xamarin.XboxOne", "xamarinxboxone" }
+            { "Xamarin.XboxOne", "xamarinxboxone" },
+            { "MonoTouch.Unified", "monotouchunified" }
         };
 
         private static readonly Dictionary<string, string> _identifierToProfileFolder = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {

@@ -370,6 +370,8 @@ namespace NuGet.Test
         [InlineData(new[] { "XamarinXboxThreeSixty", "xamarinxboxthreesixty", "XAMARINXBOXTHREESIXTY " }, "0.0", "Xamarin.Xbox360")]
         [InlineData(new[] { "XamarinXboxOne", "xamarinxboxone", "XAMARINXBOXONE " }, "0.0", "Xamarin.XboxOne")]
         [InlineData(new[] { "Xamarin.XboxOne", "xamarin.xboxone", "XAMARIN.XBOXONE " }, "0.0", "Xamarin.XboxOne")]
+        [InlineData(new[] { "MonoTouchUnified", "monotouchunified", "MONOTOUCHUNIFIED " }, "0.0", "MonoTouch.Unified")]
+        [InlineData(new[] { "MonoTouch.Unified", "monotouch.unified", "MONOTOUCH.UNIFIED " }, "0.0", "MonoTouch.Unified")]
         public void ParseFrameworkNameNormalizesSupportedXamarinFrameworkNames(string[] knownNameFormats, string version, string expectedIdentifier)
         {
             // Arrange
@@ -1368,6 +1370,7 @@ namespace NuGet.Test
         [InlineData("Xamarin.PlayStationVita, Version=v1.0", "xamarinpsvita10")]
         [InlineData("Xamarin.Xbox360, Version=v1.0", "xamarinxboxthreesixty10")]
         [InlineData("Xamarin.XboxOne, Version=v1.0", "xamarinxboxone10")]
+        [InlineData("MonoTouch.Unified, Version=v1.0", "monotouchunified10")]
         public void GetShortNameForXamarinFrameworks(string frameworkIdentifier, string expectedShortName)
         {
             // Act
@@ -1381,6 +1384,7 @@ namespace NuGet.Test
         [InlineData(".NETPortable, Version=4.0, Profile=Profile1", "portable-net45+xamarinmac10+xamarinios10")]
         [InlineData(".NETPortable, Version=4.0, Profile=Profile2", "portable-net40+win+xamarinpsthree10+xamarinpsfour10+xamarinpsvita10")]
         [InlineData(".NETPortable, Version=4.0, Profile=Profile3", "portable-net40+xamarinxboxthreesixty10+xamarinxboxone10")]
+        [InlineData(".NETPortable, Version=4.0, Profile=Profile4", "portable-net45+xamarinmac20+monotouchunified10")]
         public void TestGetShortNameForPortableXamarinFrameworks(string frameworkIdentifier, string expectedShortName)
         {
             // Arrange
@@ -1411,9 +1415,18 @@ namespace NuGet.Test
                            new FrameworkName("Xamarin.XboxOne, Version=1.0"), 
                       });
 
+            var profile4 = new NetPortableProfile(
+               "Profile4",
+               new[] { 
+                           new FrameworkName(".NETFramework, Version=4.5"), 
+                           new FrameworkName("Xamarin.Mac, Version=2.0"), 
+                           new FrameworkName("MonoTouch.Unified, Version=1.0"), 
+                      });
+
             profileCollection.Add(profile1);
             profileCollection.Add(profile2);
             profileCollection.Add(profile3);
+            profileCollection.Add(profile4);
 
             NetPortableProfileTable.Profiles = profileCollection;
 
