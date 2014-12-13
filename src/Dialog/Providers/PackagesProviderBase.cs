@@ -600,6 +600,7 @@ namespace NuGet.Dialog.Providers
         private void OnPackageInstalled(object sender, PackageOperationEventArgs e)
         {
             _providerServices.ScriptExecutor.ExecuteInitScript(e.InstallPath, e.Package, this);
+            _providerServices.ScriptCsScriptExecutor.ExecuteInitScript(e.InstallPath, e.Package, this);
             PrepareOpenReadMeFile(e);
         }
 
@@ -611,6 +612,13 @@ namespace NuGet.Dialog.Providers
                 e.InstallPath, 
                 PowerShellScripts.Install, 
                 e.Package, 
+                project,
+                project.GetTargetFrameworkName(),
+                this);
+
+            _providerServices.ScriptCsScriptExecutor.ExecuteInstallScript(
+                e.InstallPath,
+                e.Package,
                 project,
                 project.GetTargetFrameworkName(),
                 this);
@@ -627,6 +635,13 @@ namespace NuGet.Dialog.Providers
                     e.InstallPath, 
                     PowerShellScripts.Uninstall, 
                     e.Package, 
+                    project,
+                    GetTargetFrameworkForPackage(e.Package.Id) ?? project.GetTargetFrameworkName(),
+                    this);
+
+                _providerServices.ScriptCsScriptExecutor.ExecuteUninstallScript(
+                    e.InstallPath,
+                    e.Package,
                     project,
                     GetTargetFrameworkForPackage(e.Package.Id) ?? project.GetTargetFrameworkName(),
                     this);

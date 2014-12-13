@@ -12,6 +12,7 @@ namespace NuGet.Dialog.Providers
         public IProviderSettings ProviderSettings { get; private set; }
         public IVsCommonOperations VsCommonOperations { get; private set; }
         public IUpdateAllUIService UpdateAllUIService { get; private set; }
+        public ScriptCsScriptExecutor ScriptCsScriptExecutor { get; private set; }
 
         public ProviderServices() :
             this(new UserNotifierServices(),
@@ -40,6 +41,7 @@ namespace NuGet.Dialog.Providers
             ProviderSettings = selectedProviderSettings;
             VsCommonOperations = vsCommonOperations;
             UpdateAllUIService = updateAllUIService;
+            ScriptCsScriptExecutor = new ScriptCsScriptExecutor();
         }
     }
 }

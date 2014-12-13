@@ -200,6 +200,10 @@ namespace NuGet.PowerShell.Commands
         {
             AddToolsFolderToEnvironmentPath(e.InstallPath);
             ExecuteScript(e.InstallPath, PowerShellScripts.Init, e.Package, targetFramework: null, project: null);
+
+            var executor = new ScriptCsScriptExecutor();
+            executor.ExecuteInitScript(e.InstallPath, e.Package, this);
+
             PrepareOpenReadMeFile(e);
         }
 
@@ -249,6 +253,9 @@ namespace NuGet.PowerShell.Commands
             if (!project.SupportsINuGetProjectSystem())
             {
                 ExecuteScript(e.InstallPath, PowerShellScripts.Install, e.Package, project.GetTargetFrameworkName(), project);
+
+                var executor = new ScriptCsScriptExecutor();
+                executor.ExecuteInstallScript(e.InstallPath, e.Package, project, project.GetTargetFrameworkName(), this);
             }
         }
 
@@ -273,6 +280,14 @@ namespace NuGet.PowerShell.Commands
                         e.Package,
                         projectManager.GetTargetFrameworkForPackage(e.Package.Id),
                         project);
+
+                    var executor = new ScriptCsScriptExecutor();
+                    executor.ExecuteUninstallScript(
+                        e.InstallPath,
+                        e.Package,
+                        project,
+                        projectManager.GetTargetFrameworkForPackage(e.Package.Id),
+                        this);
                 }
             }
             catch (Exception ex)

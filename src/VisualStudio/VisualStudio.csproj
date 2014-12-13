@@ -64,6 +64,15 @@
     <Compile Include="QuickSearch\NugetSearchProvider.cs" />
     <Compile Include="QuickSearch\NugetSearchTask.cs" />
     <Compile Include="QuickSearch\NuGetStaticSearchResult.cs" />
+    <Compile Include="ScriptCs\PackageScript.cs" />
+    <Compile Include="ScriptCs\ScriptCsEngine.cs" />
+    <Compile Include="ScriptCs\ScriptCsHost.cs" />
+    <Compile Include="ScriptCs\ScriptCsHostContext.cs" />
+    <Compile Include="ScriptCs\ScriptCsHostInfo.cs" />
+    <Compile Include="ScriptCs\ScriptCsLogger.cs" />
+    <Compile Include="ScriptCs\ScriptCsScriptExecutor.cs" />
+    <Compile Include="ScriptCs\ScriptCsScripts.cs" />
+    <Compile Include="ScriptCs\ScriptCsSession.cs" />
     <Compile Include="Settings\ISettingsManager.cs" />
     <Compile Include="Settings\ISettingsStore.cs" />
     <Compile Include="Settings\IWritableSettingsStore.cs" />
@@ -199,7 +208,7 @@
     <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.ProjectSystem.Interop" Condition="$(VisualStudioVersion)=='14.0'" >
+    <Reference Include="Microsoft.VisualStudio.ProjectSystem.Interop" Condition="$(VisualStudioVersion)=='14.0'">
       <HintPath>..\..\lib\Microsoft.VisualStudio.ProjectSystem.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -207,6 +216,10 @@
     <Reference Include="$(VCProjectEngineAssembly)">
       <HintPath>$(VCProjectEngineAssemblyHintPath)</HintPath>
       <SpecificVersion>True</SpecificVersion>
+    </Reference>
+    <Reference Include="Mono.CSharp">
+      <HintPath>..\..\lib\Mono.CSharp.dll</HintPath>
+      <Aliases>MonoCSharp</Aliases>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -285,6 +298,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{F879F274-EFA0-4157-8404-33A19B4E6AEC}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ScriptCs\ScriptCs.csproj">
+      <Project>{A4316443-D17A-4832-B7ED-634CB0F10EC2}</Project>
+      <Name>ScriptCs</Name>
     </ProjectReference>
     <ProjectReference Include="..\VisualStudio10\VisualStudio10.csproj">
       <Project>{7765C89E-790C-4D1E-A877-227E5FE3C90B}</Project>
