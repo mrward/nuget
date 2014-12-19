@@ -60,6 +60,6 @@ namespace NuGet
         public static readonly ICollection<string> AssemblyReferencesExtensions 
             = new ReadOnlyCollection<string>(new string[] { ".dll", ".exe", ".winmd" });
 
-        public static readonly Version NuGetVersion = typeof(IPackage).Assembly.GetName().Version;
+        public static readonly Version NuGetVersion = new Version ("2.8.3");
     }
 }
