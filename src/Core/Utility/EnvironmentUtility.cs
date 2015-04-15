@@ -29,6 +29,11 @@ namespace NuGet
         {
             get
             {
+                if (_isMonoRuntime)
+                {
+                    return false;
+                }
+            
                 using (var baseKey = Microsoft.Win32.RegistryKey.OpenBaseKey(
                     Microsoft.Win32.RegistryHive.LocalMachine,
                     Microsoft.Win32.RegistryView.Registry32))
