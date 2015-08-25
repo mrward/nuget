@@ -174,11 +174,23 @@ namespace NuGet
         private static void CheckPackageMinClientVersion(IPackage package)
         {
             // validate that the current version of NuGet satisfies the minVersion attribute specified in the .nuspec
-            if (Constants.NuGetVersion < package.MinClientVersion)
+            if (Constants.NuGetVersion < GetMinClientVersion(package))
             {
                 throw new NuGetVersionNotSatisfiedException(
                     String.Format(CultureInfo.CurrentCulture, NuGetResources.PackageMinVersionNotSatisfied, package.GetFullName(), package.MinClientVersion, Constants.NuGetVersion));
             }
+        }
+
+        private static readonly Version AlternativeMinClientVersion281 = new Version ("2.8.50313");
+
+        private static Version GetMinClientVersion(IPackage package)
+        {
+            if (package.MinClientVersion == AlternativeMinClientVersion281)
+            {
+                return new Version (2, 8, 1, 0);
+            }
+
+            return package.MinClientVersion;
         }
 
         /// <summary>
